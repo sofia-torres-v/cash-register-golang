@@ -1,10 +1,14 @@
 package invoice
 
 import (
-	"fmt"
-
 	"cash-register/product"
+	"fmt"
 )
+
+// ClearScreen limpia la pantalla usando códigos de escape ANSI.
+func ClearScreen() {
+	fmt.Print("\033[H\033[2J")
+}
 
 func CreateInvoice() {
 	var customerName string
@@ -50,20 +54,18 @@ func CreateInvoice() {
 			total += selectedProduct.Price
 		}
 
-		// Limpia la consola para que se vea solo la lista actualizada
-		fmt.Print("\033[H\033[2J") // Esto limpia la terminal (en sistemas Unix-like)
+		// Limpia la pantalla y muestra la lista actualizada
+		ClearScreen()
 		fmt.Printf("Productos de %s (actualizado):\n", customerName)
 
-		// Mostrar solo la lista actualizada de productos sin repetir
 		for _, product := range invoiceProducts {
 			fmt.Printf("%d   %s   $%.2f each\n", product.Quantity, product.Name, product.Price)
 		}
-
-		fmt.Printf("Current total: $%.2f\n", total)
+		// fmt.Printf("Current total: $%.2f\n", total)
 	}
 
 	// Mostrar el total final de la factura al salir
-	fmt.Printf("\nFinal invoice for %s:\n", customerName)
+	fmt.Printf("\nFactura final para %s:\n", customerName)
 	for _, product := range invoiceProducts {
 		fmt.Printf("%d   %s   $%.2f each\n", product.Quantity, product.Name, product.Price)
 	}
