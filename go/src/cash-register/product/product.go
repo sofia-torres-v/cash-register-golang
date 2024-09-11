@@ -13,10 +13,10 @@ type Product struct {
 
 var products = []Product{
 	{ID: 1, Name: "Apple", Price: 0.50},
-	{ID: 2, Name: "Banana", Price: 0.30},
-	{ID: 3, Name: "Milk", Price: 1.20},
+	{ID: 2, Name: "Grape", Price: 0.30},
+	{ID: 3, Name: "Onion", Price: 1.20},
 	{ID: 4, Name: "Bread", Price: 0.80},
-	{ID: 5, Name: "Blueberries", Price: 0.80},
+	{ID: 5, Name: "Sugar", Price: 0.80},
 }
 
 // algoritmo insertion sort
