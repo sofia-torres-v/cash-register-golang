@@ -5,14 +5,14 @@ import (
 	"fmt"
 )
 
-// ClearScreen limpia la pantalla usando códigos de escape ANSI.
+// limpia la pantalla usando códigos de escape ANSI.
 func ClearScreen() {
 	fmt.Print("\033[H\033[2J")
 }
 
-func CreateInvoice() {
+func CreateInvoice(products []product.Product) {
 	var customerName string
-	fmt.Print("Enter your name: ")
+	fmt.Print("Ingresa tu nombre: ")
 	fmt.Scanln(&customerName)
 
 	var invoiceProducts []product.Product
@@ -23,14 +23,14 @@ func CreateInvoice() {
 	for {
 		var productID int
 
-		fmt.Print("Enter product ID (or 0 to finish): ")
+		fmt.Print("Ingresa ID de producto (o 0 para finalizar): ")
 		fmt.Scanln(&productID)
 
 		if productID == 0 {
 			break
 		}
 
-		selectedProduct, err := product.FindProductByID(productID)
+		selectedProduct, err := product.FindProductByID(productID, products)
 		if err != nil {
 			fmt.Println("Error:", err)
 			continue
@@ -56,12 +56,17 @@ func CreateInvoice() {
 
 		// Limpia la pantalla y muestra la lista actualizada
 		ClearScreen()
-		fmt.Printf("Productos de %s (actualizado):\n", customerName)
+		fmt.Printf("Productos de %s:\n", customerName)
 
 		for _, product := range invoiceProducts {
-			fmt.Printf("%d   %s   $%.2f each\n", product.Quantity, product.Name, product.Price)
+			fmt.Printf("%d   %s   $%.2f \n", product.Quantity, product.Name, product.Price)
 		}
-		// fmt.Printf("Current total: $%.2f\n", total)
+	}
+
+	// Validación cuando la lista esta vacía
+	if len(invoiceProducts) == 0 {
+		fmt.Println("No se agregaron productos a la lista")
+		return
 	}
 
 	// Mostrar el total final de la factura al salir

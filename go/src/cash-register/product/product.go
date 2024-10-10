@@ -11,13 +11,13 @@ type Product struct {
 	Quantity int
 }
 
-var products = []Product{
-	{ID: 1, Name: "Apple", Price: 0.50},
-	{ID: 2, Name: "Grape", Price: 0.30},
-	{ID: 3, Name: "Onion", Price: 1.20},
-	{ID: 4, Name: "Bread", Price: 0.80},
-	{ID: 5, Name: "Sugar", Price: 0.80},
-}
+// var products = []Product{
+// 	{ID: 1, Name: "Apple", Price: 0.50},
+// 	{ID: 2, Name: "Grape", Price: 0.30},
+// 	{ID: 3, Name: "Onion", Price: 1.20},
+// 	{ID: 4, Name: "Bread", Price: 0.80},
+// 	{ID: 5, Name: "Sugar", Price: 0.80},
+// }
 
 // algoritmo insertion sort
 func SortList(products []Product) []Product {
@@ -34,18 +34,18 @@ func SortList(products []Product) []Product {
 	return products
 }
 
-func ListProducts() {
-	fmt.Println("Available Products:")
+func ListProducts(products []Product) {
+	fmt.Println("Productos disponibles:")
 	for _, product := range SortList(products) {
 		fmt.Printf("ID: %d, Name: %s, Price: $%.2f\n", product.ID, product.Name, product.Price)
 	}
 }
 
-func FindProductByID(id int) (Product, error) {
+func FindProductByID(id int, products []Product) (Product, error) {
 	for _, product := range products {
 		if product.ID == id {
 			return product, nil
 		}
 	}
-	return Product{}, fmt.Errorf("product with ID %d not found", id)
+	return Product{}, fmt.Errorf("producto con ID %d no encontardo", id)
 }
